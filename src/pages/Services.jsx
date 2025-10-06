@@ -1,26 +1,30 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import CareRide from "../components/Services/CareRide";
-import CareMate from "../components/Services/CareMate";
-import CareTrack from "../components/Services/CareTrack";
-import CareAssist from "../components/Services/CareAssist";
-import CareMed from "../components/Services/CareMed";
+import ServicesSection from "../components/Services/ServicesSection";
+import FamWellLogo from "../assets/FamWellLogo.png";
 
 const Services = () => {
   return (
-    <div className="font-sans">
+    <div className="font-sans min-h-screen bg-white text-gray-900">
       <Navbar />
-      <header className="text-center py-12 bg-gray-50">
-        <h1 className="text-4xl font-bold text-purple-600">Farmwell Services</h1>
+
+      <header className="flex flex-col items-center justify-center text-center h-[100vh] bg-white">
+        <img
+          src={FamWellLogo}
+          alt="FamWellPlus Logo"
+          className="w-[420px] md:w-[480px] h-auto mb-8 object-contain"
+        />
+
+        <h2 className="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight">
+          Services
+        </h2>
       </header>
-      <main className="space-y-12 px-6 md:px-16 lg:px-28">
-        <CareRide />
-        <CareMate />
-        <CareTrack />
-        <CareAssist />
-        <CareMed />
+
+      <main className="pt-20 px-6 md:px-16 lg:px-28 space-y-12">
+        <ServicesSection />
       </main>
+
       <Footer />
     </div>
   );
