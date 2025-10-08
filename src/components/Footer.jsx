@@ -32,14 +32,15 @@ const Footer = () => {
             <div className="space-y-1">
               <h3 className={`text-xl font-bold ${foregroundColor} mb-2`}>Address:</h3>
               <p className={`text-md ${foregroundColor} opacity-80`}>
-                Level 1, 12 Sample St, Sydney NSW<br />2000
+                8-163, Indra Reddy, Allwyncolony, Miyapur, Tirumalagiri, Hyderabad<br />500049
               </p>
             </div>
             <div className="space-y-1">
               <h3 className={`text-xl font-bold ${foregroundColor} mb-2`}>Contact:</h3>
               <p className={`text-md ${foregroundColor} opacity-80`}>
-                <a href="tel:1800123456" className={linkHover}>1800 123 4567</a><br />
-                <a href="mailto:email@example.com" className={linkHover}>email@example.com</a>
+               
+                <span className={`${foregroundColor} opacity-80`}>+91 (799) 515-1717</span><br />
+                <span className={`${foregroundColor} opacity-80`}>info@famwellplus.com</span>
               </p>
             </div>
           </div>
