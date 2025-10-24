@@ -16,7 +16,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-white via-white via-[66%] to-[#AF85D9] mt-16">
+    <footer className="bg-gradient-to-r from-white via-white via-[66%] to-[#AF85D9]">
       <div className="max-w-full mx-auto px-8 py-16">
         
         {/* Footer Grid Layout */}

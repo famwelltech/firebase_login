@@ -26,10 +26,6 @@ import smartSafe from "../assets/smart_safe.png";
 import phone13Pro from "../assets/iPhone_13_Pro.png";
 import character from "../assets/OurTechnology.png";
 
-// Contact icons
-import iconMail from "../assets/mail.png";
-import iconCall from "../assets/call.png";
-import iconLocation from "../assets/location_on.png";
 
 // ------------------------------ Centralized style tokens ------------------------------
 const styles = {
@@ -38,15 +34,15 @@ const styles = {
   heroSec: "relative overflow-hidden",
   heroBg: "absolute inset-0 -z-10 bg-gradient-to-b from-purple-50 to-white",
   heroWrap:
-    "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid lg:grid-cols-2 gap-10 items-center",
-  heroH1: "text-4xl sm:text-5xl font-bold tracking-tight",
+    "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid lg:grid-cols-2 items-center",
+  heroH1: "text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight",
   heroP: "mt-4 text-lg text-gray-600",
   heroCtaRow: "mt-6 flex flex-wrap gap-3",
   ctaPrimary:
     "inline-flex h-11 items-center rounded-xl bg-purple-600 px-6 text-white hover:bg-purple-700",
   ctaSecondary:
     "inline-flex h-11 items-center rounded-xl border px-6 hover:bg-gray-50",
-  heroImgs: "flex justify-center gap-6",
+  heroImgs: "flex justify-center",
   heroImg: "w-1/2 max-w-sm",
   // Services
   servicesSec: "relative py-16 bg-[#E8FBEF]",
@@ -71,7 +67,7 @@ servicesItemTitle: "text-[28px] leading-7 font-semibold text-[#0F3A2D]",
 servicesItemDesc: "mt-2 text-[15px] leading-6 text-[#214D3F]/80 max-w-[40ch]",
 
 
-  learnMoreRow: "mt-1 flex sm:justify-end",
+  learnMoreRow: "mt-1 flex sm:justify-center",
   learnMoreBtn:
     "inline-flex items-center rounded-full bg-white/90 px-6 py-2.5 text-sm font-medium text-[#0F3A2D] ring-1 ring-black/5 hover:bg-white transition",
   // Why
@@ -79,37 +75,34 @@ servicesItemDesc: "mt-2 text-[15px] leading-6 text-[#214D3F]/80 max-w-[40ch]",
   whyTopWrap: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
   whyAccent: "h-2 w-full rounded-full bg-[#BFEFCC] mb-8",
   whyGridWrap: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
-  whyH2: "text-4xl font-extrabold text-center tracking-tight",
+  whyH2: "text-5xl font-extrabold text-center tracking-tight",
   whyGrid: "mt-12 grid gap-y-12 gap-x-10 sm:grid-cols-2 lg:grid-cols-3",
   whyCard: "text-center",
-  whyIconWrap: "mx-auto mb-4 grid place-items-center",
-  whyIconBox:
-    "h-20 w-20 rounded-2xl bg-white shadow-sm ring-1 ring-black/5 grid place-items-center",
-  whyIcon: "h-16 w-16 object-contain",
-  whyTitle: "text-xl font-semibold",
-  whyDesc: "mt-2 text-sm leading-relaxed text-gray-600 max-w-xs mx-auto",
-  // Promo
-  promoSec: "relative overflow-hidden bg-[#8F5DD3] text-white",
+  whyIconWrap: "mx-auto mb-6 md:mb-8 grid place-items-center",
+  whyIcon: "h-[240px] w-[240px] object-cover",
+  whyTitle: "text-3xl font-bold",
+  whyDesc: "mt-2 text-md leading-relaxed text-gray-600 max-w-xs mx-auto",
+  promoSec: "relative overflow-hidden bg-[#8F5DD3] text-white py-14 lg:py-16",
   promoDeco1:
-    "pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/15",
+    "pointer-events-none absolute -bottom-24 -left-24 h-[260px] w-[260px] rounded-full bg-white/20",
   promoDeco2:
-    "pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-white/10",
-  promoWrap: "relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16",
-  promoGrid: "grid lg:grid-cols-2 gap-10 items-center",
-  promoH2: "text-3xl sm:text-4xl font-extrabold leading-tight",
-  promoSub: "mt-4 text-white/90 text-sm",
-  promoForm: "mt-5 max-w-md",
+    "pointer-events-none absolute -top-24 -right-24 h-[220px] w-[220px] rounded-full bg-white/20",
+  promoWrap: "relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
+  promoGrid: "grid lg:grid-cols-2 items-center p-5 m-5",
+  promoH2: "text-4xl sm:text-5xl lg:text-5xl font-extrabold leading-tight",
+  promoSub: "mt-4 text-white/90 text-base sm:text-[17px]",
+  promoForm: "mt-6 max-w-md",
   promoInput:
-    "flex-1 rounded-l-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none",
+    "flex-1 px-5 py-3 text-gray-900 placeholder-gray-500 focus:outline-none text-base bg-transparent",
   promoBtn:
-    "rounded-r-xl bg-[#A4E07F] px-6 py-3 font-semibold text-gray-900 hover:bg-[#B5E89B]",
-  promoRight: "relative h-[360px] sm:h-[460px] lg:h-[560px]",
+    "px-5 md:px-6 py-2.5 font-semibold text-black bg-[#A4E07F] hover:brightness-105 transition text-base flex items-center gap-2 border-none rounded-full",
+  promoRight: "relative h-[320px] sm:h-[400px] lg:h-[500px]",
   promoPhone:
-    "absolute bottom-0 left-1/2 -translate-x-1/2 h-[320px] sm:h-[420px] lg:h-[520px] z-[1] drop-shadow-[0_16px_24px_rgba(0,0,0,0.35)]",
+    "absolute bottom-0 right-12 sm:right-16 lg:right-20 h-[320px] sm:h-[400px] lg:h-[480px] z-[1] drop-shadow-2xl",
   promoShadow:
-    "absolute left-1/2 -translate-x-1/2 bottom-[6px] w-[78%] h-[3px] rounded-full bg-black/30 blur-[1px] opacity-50",
+    "absolute right-8 sm:right-12 lg:right-16 bottom-0 w-[200px] sm:w-[260px] lg:w-[320px] h-[60px] sm:h-[80px] lg:h-[100px] rounded-full bg-black/30 blur-3xl",
   promoChar:
-    "absolute bottom-0 left-1/2 -translate-x-[8%] h-[170px] sm:h-[210px] lg:h-[250px] z-[2]",
+    "absolute bottom-0 right-6 sm:right-8 lg:right-12 h-[180px] sm:h-[220px] lg:h-[260px] z-[2]",
   // Mission
   missionSec: "py-16",
   missionBar: "h-1 w-full bg-[#8F5DD3]",
@@ -142,8 +135,6 @@ export default function Home() {
       <ServicesSection />
       <WhyChooseUs />
       <AppPromo />
-      <MissionForm />
-      <ContactSection />
       <Footer />
     </div>
   );
@@ -156,26 +147,33 @@ function Hero() {
       <div className={styles.heroBg} />
       <div className={styles.heroWrap}>
         <div>
-          <h1 className={styles.heroH1}>Simplifying Your Healthcare Journey...</h1>
-          <p className={styles.heroP}>
-            Care plans, dashboards, consultations, and coordination—everything in one place.
-          </p>
+          <h1 className={styles.heroH1}>Simplifying Your Healthcare Journey..</h1>
           <div className={styles.heroCtaRow}>
-            <a href="#mission" className={styles.ctaPrimary}>Get Started</a>
-            <a href="#services" className={styles.ctaSecondary}>Explore Services</a>
+            <a href="/services" className={styles.ctaPrimary}>Get Services</a>
           </div>
         </div>
-
-        <div className={styles.heroImgs}>
-          <img src={carePeople} alt="Healthcare illustration" className={styles.heroImg} />
-          <img src={favProp} alt="Supporting illustration" className={styles.heroImg} />
+        
+        {/* Right visual stack: large heart logo with overlapping caregiver illustration */}
+        <div className="relative w-full h-[260px] sm:h-[320px] lg:h-[380px]">
+          {/* Heart/brand mark */}
+          <img
+            src={favProp}
+            alt="Famwell brand"
+            className="absolute top-0 right-0 h-full w-auto object-contain"
+          />
+          {/* Caregiver with patient */}
+          <img
+            src={carePeople}
+            alt="Caregiver with patient"
+            className="absolute bottom-0 me-5 sm:left-10 h-[70%] w-auto object-contain"
+          />
         </div>
       </div>
     </section>
   );
 }
 
-/* ------------------------------ Services (right panel) ------------------------------ */
+/* ------------------------------ Services (right panel) --------5---------------------- */
 function ServicesSection() {
   const items = [
     { title: "Care Ride",   desc: "Pick & drop services to hospitals.",               image: imgRide },
@@ -236,20 +234,16 @@ function ServicesSection() {
 /* ------------------------------ Why Choose Us ------------------------------ */
 function WhyChooseUs() {
   const features = [
-    { title: "End To End Care", desc: "From hospital visits and lab tests to pharmacy management and insurance.", image: endToEnd },
-    { title: "Human Touch", desc: "Dedicated care assistants ensure personal attention, not just app-based chats.", image: humanTouch },
-    { title: "Seamless Experience", desc: "No juggling between multiple apps—one trusted partner for all needs.", image: seamlessExp },
-    { title: "Peace of Mind", desc: "Guidance, organized records, and proactive support keep you stress-free.", image: peaceOfMind },
-    { title: "Trusted & Reliable", desc: "Genuine medicines, transparent processes, and compassionate care.", image: trusted },
-    { title: "Smart & Safe", desc: "Tracking, secure conversations, and easy digital payments.", image: smartSafe },
+    { title: "End To End Care", desc: "From hospital visits and lab tests to pharmacy management and insurance", image: endToEnd },
+    { title: "Human Touch", desc: "Dedicated care assistants ensure you and your family get personal attention, not just app-based chats.", image: humanTouch },
+    { title: "Seamless Experience", desc: "No juggling between multiple apps—one trusted partner for all your healthcare needs.", image: seamlessExp },
+    { title: "Peace of Mind", desc: "With clear guidance, organized health records, and proactive support, you stay stress-free.", image: peaceOfMind },
+    { title: "Trusted & Reliable", desc: "Genuine medicines, transparent processes, and compassionate care at every step.", image: trusted },
+    { title: "Smart & Safe Services", desc: "location tracking, secure conversations records of Doctor-patient discussions, easy digital payments", image: smartSafe },
   ];
 
   return (
     <section id="why" className={styles.whySec}>
-      <div className={styles.whyTopWrap}>
-        <div className={styles.whyAccent} />
-      </div>
-
       <div className={styles.whyGridWrap}>
         <h2 className={styles.whyH2}>Why Choose Us?</h2>
 
@@ -257,11 +251,9 @@ function WhyChooseUs() {
           {features.map((f, i) => (
             <div key={i} className={styles.whyCard}>
               <div className={styles.whyIconWrap}>
-                <div className={styles.whyIconBox}>
-                  <img src={f.image} alt={f.title} className={styles.whyIcon} loading="lazy" />
-                </div>
+                <img src={f.image} alt={f.title} className={styles.whyIcon} loading="lazy" />
               </div>
-              <h3 className={styles.whyTitle}>{f.title}</h3>
+              <h2 className={styles.whyTitle}>{f.title}</h2>
               <p className={styles.whyDesc}>{f.desc}</p>
             </div>
           ))}
@@ -279,74 +271,33 @@ function AppPromo() {
       <div className={styles.promoDeco2} />
       <div className={styles.promoWrap}>
         <div className={styles.promoGrid}>
-          <div>
+          <div className="ms-5 ps-5">
             <h2 className={styles.promoH2}>
-              Our Own Famwellplus <br /> application is <br /> coming soon ...
+              Our Own Famwellplus application is coming soon ...
             </h2>
             <p className={styles.promoSub}>Get notification on App release</p>
             <form className={styles.promoForm} onSubmit={(e) => e.preventDefault()}>
-              <div className="flex">
-                <input type="tel" placeholder="+91" className={styles.promoInput} />
-                <button type="submit" className={styles.promoBtn}>&gt; Send</button>
+              {/* pill input + button like mockup */}
+              <div className="flex items-center bg-white rounded-full ring-1 ring-white/30 shadow-sm overflow-hidden">
+                <input
+                  type="tel"
+                  placeholder="+91"
+                  className={styles.promoInput}
+                />
+                <button type="submit" className={styles.promoBtn}>
+                  <span className="text-lg">▶</span>
+                  <span>Send</span>
+                </button>
               </div>
             </form>
           </div>
           <div className={styles.promoRight}>
             <img src={phone13Pro} alt="App preview" className={styles.promoPhone} />
-            <div className={styles.promoShadow} aria-hidden="true" />
+            <div className={styles.promoShadow} />
             <img src={character} alt="Character" className={styles.promoChar} />
+            {/* Character shadow */}
+            <div className="absolute right-4 sm:right-6 lg:right-10 bottom-0 w-[120px] sm:w-[140px] lg:w-[160px] h-[40px] sm:h-[50px] lg:h-[60px] rounded-full bg-black/30 blur-3xl z-[1]" />
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------ Mission Form ------------------------------ */
-function MissionForm() {
-  const inputBase = styles.missionInputBase;
-  return (
-    <section id="mission" className={styles.missionSec}>
-      <div className={styles.missionBar} />
-      <div className={styles.missionWrap}>
-        <h2 className={styles.missionH2}>Wanna Join Our Mission!</h2>
-        <form className={styles.missionForm} onSubmit={(e) => e.preventDefault()}>
-          <div className={styles.missionGrid}>
-            <input type="text" placeholder="Name" className={inputBase} />
-            <input type="number" placeholder="Age" className={inputBase} />
-            <input type="tel" placeholder="Phone" className={inputBase} />
-            <input type="email" placeholder="Email" className={inputBase} />
-            <textarea placeholder="Comments" rows={3} className={`${inputBase} ${styles.missionTextarea}`} />
-          </div>
-          <div className="mt-6">
-            <input id="cv" type="file" className="hidden" />
-            <button type="submit" className={styles.missionBtn}>Upload CV &amp; Send</button>
-          </div>
-        </form>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------ Contact ------------------------------ */
-function ContactSection() {
-  const items = [
-    { title: "Email", value: "info@famwellplus.com",  image: iconMail },
-    { title: "Phone", value: "+91 (799) 515-1717", image: iconCall },
-    { title: "Office", value: "8-163, Indra Reddy, Allwyncolony, Miyapur, Tirumalagiri, Hyderabad", image: iconLocation },
-  ];
-  return (
-    <section id="contact" className={styles.contactSec}>
-      <div className={styles.contactWrap}>
-        <h2 className={styles.contactH2}>Let’s Connect Here</h2>
-        <div className={styles.contactGrid}>
-          {items.map((it, i) => (
-            <div key={i} className={styles.contactCard}>
-              <img src={it.image} alt={`${it.title} icon`} className={styles.contactIcon} />
-              <h3 className={styles.contactTitle}>{it.title}</h3>
-              <a href={it.href} className={styles.contactLink}>{it.value}</a>
-            </div>
-          ))}
         </div>
       </div>
     </section>

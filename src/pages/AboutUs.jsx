@@ -8,7 +8,7 @@ import Mission from "../components/MissionVision/Mission";
 const AboutUs = () => {
   return (
 
-    <div className="font-sans overflow-x-hidden"> 
+    <div className="font-sans min-h-screen bg-white text-gray-900"> 
       
       <Navbar />
 

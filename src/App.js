@@ -10,12 +10,8 @@ function App() {
       <Routes>
         
         <Route path="/" element={<Home />} /> 
-        
         <Route path="/about" element={<AboutUs />} />
-
-
         <Route path="/services" element={<Services />} />
-        
         <Route path="/sign" element={<div>Sign Up Page Content</div>} />
         <Route path="/login" element={<div>Login Page Content</div>} />
         <Route path="/contact" element={<div>Contact Us Page Content</div>} />

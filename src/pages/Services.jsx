@@ -21,7 +21,7 @@ const Services = () => {
         </h2>
       </header>
 
-      <main className="pt-10 px-5 md:px-10 lg:px-15 space-y-12">
+      <main className="pt-10 pb-10 px-5 md:px-10 lg:px-15 space-y-12">
         <ServicesSection />
       </main>
 
