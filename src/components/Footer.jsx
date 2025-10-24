@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from "react-icons/fa";
-import FamWellLogo from "../assets/FamWellLogo.png";
+import FamWellLogo from "../assets/logo final.png";
 
 const Footer = () => {
   const foregroundColor = 'text-gray-900';
