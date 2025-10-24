@@ -46,7 +46,7 @@ export default function ServicesSection(){
           'Timely coordination for appointments',
         ]}
         image={imgRide}
-        reverse 
+       
       />
 
       <Service
@@ -60,6 +60,7 @@ export default function ServicesSection(){
           'A well-organized summary of patient records for better decisions',
         ]}
         image={imgMate}
+         reverse 
       />
 
       <Service
@@ -72,7 +73,6 @@ export default function ServicesSection(){
           'Follow-up tracking for continuity of care',
         ]}
         image={imgTrack}
-        reverse 
       />
 
       <Service
@@ -85,7 +85,7 @@ export default function ServicesSection(){
           'Guidance for healthcare-related queries and coordination',
         ]}
         image={imgAssist}
-       
+        reverse 
       />
 
       <Service
@@ -99,7 +99,6 @@ export default function ServicesSection(){
           'Patient Support for queries & guidance',
         ]}
         image={imgMed}
-         reverse
       />
     </section>
   )
