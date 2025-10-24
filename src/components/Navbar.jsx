@@ -6,19 +6,20 @@ const Navbar = () => {
   const getNavLinkClasses = ({ isActive }) =>
     `relative block py-2 font-medium transition-all duration-300 ${
       isActive
-        ? "text-[#AF85D9] font-bold" 
-        : "text-gray-600 group hover:text-gray-900" 
+        ? "text-gray-900 font-semibold" 
+        : "text-gray-600 hover:text-gray-900" 
     }`;
 
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about" }, 
     { name: "Services", path: "/services" },
+    { name: "Contact Us", path: "/contact" }
   ];
 
   const getUnderlineClasses = ({ isActive }) =>
-    `absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#AF85D9] to-[#8FC890] rounded-full transition-transform duration-300 ease-out origin-center ${
-      isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+    `absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-[#AF85D9] to-[#8FC890] rounded-full transition-all duration-300 ease-out ${
+      isActive ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
     }`;
 
   return (
@@ -39,8 +40,12 @@ const Navbar = () => {
                   className={getNavLinkClasses}
                   {...(item.path === "/" ? { end: true } : {})} 
                 >
-                  {item.name}
-                  <span className={getUnderlineClasses}></span>
+                  {({ isActive }) => (
+                    <>
+                      {item.name}
+                      <span className={getUnderlineClasses({ isActive })}></span>
+                    </>
+                  )}
                 </NavLink>
               </li>
             ))}
@@ -50,23 +55,23 @@ const Navbar = () => {
         {/* Action Buttons */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center space-y-2 lg:space-y-0 lg:space-x-4 w-full lg:w-auto">
           
-          {/* Join Us Button */}
+          {/* Sign Up Button */}
           <Link
-            to="/join"
-            className="relative p-[2px] rounded-lg text-left lg:text-center font-medium text-gray-700 transition-all duration-300 group w-full lg:w-auto"
+            to="/sign"
+            className="relative p-[2px] rounded-lg text-left lg:text-center font-medium font-weight-100 transition-all duration-300 group w-full lg:w-auto"
           >
             <span className="absolute inset-0 bg-gradient-to-r from-[#AF85D9] to-[#8FC890] rounded-lg"></span>
             <span className="relative block px-7 py-2 bg-white rounded-lg group-hover:bg-transparent group-hover:text-white transition">
-              Join Us
+              Sign Up
             </span>
           </Link>
-          
-          {/* Contact Us Button */}
+
+          {/* Login Button */}
           <Link
-            to="/contact"
+            to="/login"
             className="px-8 py-[10px] rounded-lg font-medium text-white bg-[#AF85D9] hover:opacity-90 transition-opacity w-full lg:w-auto text-center"
           >
-            Contact Us
+            Login
           </Link>
         </div>
       </div>
