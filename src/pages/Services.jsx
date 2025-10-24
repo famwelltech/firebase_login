@@ -9,7 +9,7 @@ const Services = () => {
     <div className="font-sans min-h-screen bg-white text-gray-900">
       <Navbar />
 
-      <header className="flex flex-col items-center justify-center text-center h-[100vh] bg-white">
+      <header className="flex flex-col items-center justify-center text-center h-[70vh] bg-white">
         <img
           src={FamWellLogo}
           alt="FamWellPlus Logo"
@@ -21,7 +21,7 @@ const Services = () => {
         </h2>
       </header>
 
-      <main className="pt-20 px-6 md:px-16 lg:px-28 space-y-12">
+      <main className="pt-10 px-5 md:px-10 lg:px-15 space-y-12">
         <ServicesSection />
       </main>
 
