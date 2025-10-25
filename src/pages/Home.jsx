@@ -34,14 +34,16 @@ const styles = {
   heroSec: "relative overflow-hidden",
   heroBg: "absolute inset-0 -z-10 bg-gradient-to-b from-purple-50 to-white",
   heroWrap:
-    "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid lg:grid-cols-2 items-center",
-  heroH1: "text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight",
+    "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16 grid lg:grid-cols-2 items-start",
+   heroH1: "text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight",
   heroP: "mt-4 text-lg text-gray-600",
   heroCtaRow: "mt-6 flex flex-wrap gap-3",
   ctaPrimary:
     "inline-flex h-11 items-center rounded-xl bg-purple-600 px-6 text-white font-bold hover:bg-purple-700",
   heroImgs: "flex justify-center",
   heroImg: "w-1/2 max-w-sm",
+  heroCareImg:
+    "absolute left-1/2 -translate-x-1/2 bottom-0 md:-bottom-10 lg:-bottom-16 z-20 w-auto object-contain h-[220px] sm:h-[320px] md:h-[420px] lg:h-[520px]",
   // Services
   servicesSec: "relative bg-[#8FC890] overflow-hidden p-20 pt-40",
   servicesGrid:
@@ -152,20 +154,20 @@ function Hero() {
         </div>
         
         {/* Right visual stack: large heart logo with overlapping caregiver illustration */}
-        <div className="relative w-full h-[260px] sm:h-[320px] lg:h-[380px]">
+        <div className="relative w-full h-[260px] sm:h-[320px] lg:h-[380px] justify-between flex">
           {/* Heart/brand mark */}
           <img
             src={favProp}
             alt="Famwell brand"
-            className="absolute top-0 right-0 h-full w-auto object-contain"
-          />
-          {/* Caregiver with patient */}
-          <img
-            src={carePeople}
-            alt="Caregiver with patient"
-            className="absolute bottom-0 me-5 sm:left-10 h-[70%] w-auto object-contain"
+            className="absolute top-5 right-0 h-full w-auto object-contain"
           />
         </div>
+        {/* Centered caregiver illustration (larger, horizontally centered, and slightly lower) */}
+        <img
+          src={carePeople}
+          alt="Caregiver with patient"
+          className={styles.heroCareImg}
+        />
       </div>
     </section>
   );
