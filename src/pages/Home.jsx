@@ -35,41 +35,39 @@ const styles = {
   heroBg: "absolute inset-0 -z-10 bg-gradient-to-b from-purple-50 to-white",
   heroWrap:
     "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid lg:grid-cols-2 items-center",
-  heroH1: "text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight",
+  heroH1: "text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight",
   heroP: "mt-4 text-lg text-gray-600",
   heroCtaRow: "mt-6 flex flex-wrap gap-3",
   ctaPrimary:
-    "inline-flex h-11 items-center rounded-xl bg-purple-600 px-6 text-white hover:bg-purple-700",
-  ctaSecondary:
-    "inline-flex h-11 items-center rounded-xl border px-6 hover:bg-gray-50",
+    "inline-flex h-11 items-center rounded-xl bg-purple-600 px-6 text-white font-bold hover:bg-purple-700",
   heroImgs: "flex justify-center",
   heroImg: "w-1/2 max-w-sm",
   // Services
-  servicesSec: "relative py-16 bg-[#E8FBEF]",
+  servicesSec: "relative bg-[#8FC890] overflow-hidden p-20 pt-40",
   servicesGrid:
-    "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[300px,1fr] gap-8 items-stretch",
-  servicesLeft: "flex items-end justify-center lg:justify-start",
+    "mx-auto max-w-7xl   grid lg:grid-cols-[340px,1fr] gap-10 items-start",
+  servicesLeft: "flex justify-start -ml-4 m-5",
   servicesLeftImg:
-    "w-[200px] sm:w-[230px] md:w-[250px] lg:w-[280px] h-auto object-contain",
+    "w-[280px] sm:w-[340px] md:w-[380px] lg:w-[420px] h-auto object-contain",
   servicesPanel:
     "relative rounded-2xl border border-[#78D9AA] bg-[#BFEFCC] p-6 sm:p-8 overflow-hidden",
   servicesDeco1:
-    "pointer-events-none absolute left-0 -top-10 h-28 w-28 -translate-x-1/2 rounded-full bg-[#94E5BD]/40",
+    "pointer-events-none absolute left-0 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5A9E7A]/60",
   servicesDeco2:
-    "pointer-events-none absolute -right-16 -bottom-16 h-40 w-40 rounded-full bg-[#94E5BD]/40",
+    "pointer-events-none absolute right-0 bottom-0 h-[550px] w-[550px] translate-x-1/3 translate-y-1/3 rounded-full bg-[#5A9E7A]/60",
   // Services
 // Services
-servicesList: "grid sm:grid-cols-2 gap-x-16 gap-y-16",
+servicesList: "grid sm:grid-cols-2 gap-x-24 gap-y-12",
 // no background/shadow/ring — keep only sizing helper
 servicesTile: "shrink-0",
 
-servicesItemTitle: "text-[28px] leading-7 font-semibold text-[#0F3A2D]",
-servicesItemDesc: "mt-2 text-[15px] leading-6 text-[#214D3F]/80 max-w-[40ch]",
+servicesItemTitle: "text-[40px] leading-[100%] font-black tracking-[0%]",
+servicesItemDesc: "mt-2 text-[16px] leading-6 font-semibold max-w-[32ch]",
 
 
-  learnMoreRow: "mt-1 flex sm:justify-center",
+  learnMoreRow: "mb-10 flex justify-end",
   learnMoreBtn:
-    "inline-flex items-center rounded-full bg-white/90 px-6 py-2.5 text-sm font-medium text-[#0F3A2D] ring-1 ring-black/5 hover:bg-white transition",
+    "inline-flex items-center gap-2 text-xl font-semibold text-[#0F3A2D] underline underline-offset-4 decoration-2 hover:text-[#1a5a42] transition",
   // Why
   whySec: "py-16",
   whyTopWrap: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
@@ -87,7 +85,7 @@ servicesItemDesc: "mt-2 text-[15px] leading-6 text-[#214D3F]/80 max-w-[40ch]",
     "pointer-events-none absolute -bottom-24 -left-24 h-[260px] w-[260px] rounded-full bg-white/20",
   promoDeco2:
     "pointer-events-none absolute -top-24 -right-24 h-[220px] w-[220px] rounded-full bg-white/20",
-  promoWrap: "relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
+  promoWrap: "relative mx-auto max-w-7xl px-2 sm:px-2 lg:px-4",
   promoGrid: "grid lg:grid-cols-2 items-center p-5 m-5",
   promoH2: "text-4xl sm:text-5xl lg:text-5xl font-extrabold leading-tight",
   promoSub: "mt-4 text-white/90 text-base sm:text-[17px]",
@@ -185,35 +183,35 @@ function ServicesSection() {
 
   return (
     <section id="services" className={styles.servicesSec}>
+      {/* Decorative circles */}
+      <div className={styles.servicesDeco1} />
+      <div className={styles.servicesDeco2} />
+      
       <div className={styles.servicesGrid}>
         {/* Left column illustration (unchanged) */}
         <div className={styles.servicesLeft}>
           <img src={peopleColumn} alt="Care helpers" className={styles.servicesLeftImg} />
         </div>
 
-        {/* Right panel */}
-        <div className={styles.servicesPanel}>
-          <div className={styles.servicesDeco1} />
-          <div className={styles.servicesDeco2} />
-
+        {/* Services content - without the box wrapper */}
+        <div className="relative">
           <div className={styles.servicesList}>
             {items.map(({ title, desc, image }, i) => (
-              <div key={i} className="flex items-center gap-4">
+              <div key={i} className="flex items-start gap-6 m-3">
                 {/* Icon without white background */}
-<div className={styles.servicesTile} aria-hidden="true">
-  <div className="h-[84px] w-[84px] overflow-hidden rounded-xl">
-    <img
-      src={image}
-      alt=""
-      className="h-full w-full object-contain"  // keeps original artwork (no bg added)
-      loading="lazy"
-    />
-  </div>
-</div>
-
+                <div className={styles.servicesTile} aria-hidden="true">
+                  <div className="h-[150px] w-[150px] rounded-xl flex-shrink-0">
+                    <img
+                      src={image}
+                      alt=""
+                      className=" object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
 
                 {/* Copy */}
-                <div>
+                <div className="pt-2">
                   <div className={styles.servicesItemTitle}>{title}</div>
                   <p className={styles.servicesItemDesc}>{desc}</p>
                 </div>
