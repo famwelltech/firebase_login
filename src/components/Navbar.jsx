@@ -61,7 +61,7 @@ const Navbar = () => {
             className="relative p-[2px] rounded-lg text-left lg:text-center font-medium font-weight-100 transition-all duration-300 group w-full lg:w-auto"
           >
             <span className="absolute inset-0 bg-gradient-to-r from-[#AF85D9] to-[#8FC890] rounded-lg"></span>
-            <span className="relative block px-7 py-2 bg-white rounded-lg group-hover:bg-transparent group-hover:text-white transition">
+            <span className="relative block px-7 py-2 bg-white font-bold rounded-lg group-hover:bg-transparent group-hover:text-white transition">
               Sign Up
             </span>
           </Link>
@@ -69,7 +69,7 @@ const Navbar = () => {
           {/* Login Button */}
           <Link
             to="/login"
-            className="px-8 py-[10px] rounded-lg font-medium text-white bg-[#AF85D9] hover:opacity-90 transition-opacity w-full lg:w-auto text-center"
+            className="px-8 py-[10px] rounded-lg font-medium font-bold text-white bg-[#AF85D9] hover:opacity-90 transition-opacity w-full lg:w-auto text-center"
           >
             Login
           </Link>

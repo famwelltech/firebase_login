@@ -16,7 +16,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-white via-white via-[66%] to-[#AF85D9]">
+    <footer className="bg-gradient-to-r from-white via-white via-40% to-[#A372D3] text-foreground">
       <div className="max-w-full mx-auto px-8 py-16">
         
         {/* Footer Grid Layout */}
@@ -24,7 +24,7 @@ const Footer = () => {
           
           {/* 1. Logo Section */}
           <div className="col-span-2 md:col-span-1">
-            <img src={FamWellLogo} alt="FamWell Logo" className="w-40 h-auto object-contain" />
+            <img src={FamWellLogo} alt="FamWell Logo" className="w-100 h-auto object-contain" />
           </div>
 
           {/* 2. Address & Contact */}
@@ -77,7 +77,6 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-
         {/* Bottom Bar */}
         <div className="pt-6 flex flex-wrap justify-between items-center text-sm gap-4">
           <p className={`${foregroundColor} opacity-80 whitespace-nowrap`}>
