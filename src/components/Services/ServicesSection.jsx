@@ -20,10 +20,7 @@ function Service({ title, subtitle, desc, points, image, reverse=false }){
             {points.map((p, i) => (<li key={i}>{p}</li>))}
           </ul>
         ) : null}
-        <div className="care__actions">
-          <button className="btn btn--primary">Get Service Now</button>
-          <button className="btn btn--ghost">Learn More</button>
-        </div>
+        
       </div>
 
       <div className="care__visual" aria-hidden="true">

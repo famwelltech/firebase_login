@@ -133,7 +133,7 @@ const ContactUs = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full bg-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-purple-700 transition duration-300 ease-in-out"
+                  className="w-full bg-[#AF85D9] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#AF85D9] transition duration-300 ease-in-out"
                 >
                   Send
                 </button>
