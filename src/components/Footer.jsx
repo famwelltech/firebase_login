@@ -16,14 +16,14 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-white via-white via-40% to-[#A372D3] text-foreground">
+    <footer className="bg-gradient-to-b sm-600:bg-gradient-to-r from-white via-white via-40% to-[#A372D3] text-foreground">
       <div className="max-w-full mx-auto px-8 py-16">
         
         {/* Footer Grid Layout */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 pb-12 mb-8">
+        <div className="grid grid-cols-1 sm-600:grid-cols-4 gap-12 pb-12 mb-8">
           
           {/* 1. Logo Section */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="sm-600:col-span-1">
             <img src={FamWellLogo} alt="FamWell Logo" className="w-100 h-auto object-contain" />
           </div>
 
