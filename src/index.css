@@ -1,6 +1,6 @@
 /* --- Global styles --- */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -30,6 +30,30 @@ body {
   background-color: #ffffff;
   color: #213547;
 }
+
+/* Global, slim scrollbar (keeps one small bar across pages) */
+html {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #bdbdbd #f0f0f0;
+}
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 9999px;
+  border: 2px solid #f0f0f0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a6a6a6;
+}
+
 
 h1 {
   font-size: 3.2em;

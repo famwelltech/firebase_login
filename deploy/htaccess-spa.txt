@@ -1,0 +1,15 @@
+# React (CRA) SPA rewrite rules for Apache (.htaccess)
+# Place this file as .htaccess in the folder where build files live
+# - Root domain: /public_html/.htaccess
+# - Subfolder:    /public_html/YOUR_FOLDER/.htaccess
+# - Subdomain:    the subdomain's document root/.htaccess
+
+RewriteEngine On
+
+# Serve existing files/folders directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Otherwise, route everything to index.html
+RewriteRule ^ index.html [L]

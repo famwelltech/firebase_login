@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -35,7 +36,8 @@ const styles = {
   heroBg: "absolute inset-0 -z-10 bg-gradient-to-b from-purple-50 to-white",
   heroWrap:
     "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16 grid lg:grid-cols-2 items-start",
-   heroH1: "text-5xl sm:text-6xl lg:text-7xl font-semibold leading-tight",
+  // Consistent hero heading scale and weight
+  heroH1: "text-[clamp(2rem,5vw,3.25rem)] font-extrabold leading-tight",
   heroP: "mt-4 text-lg text-gray-600",
   heroCtaRow: "mt-6 flex flex-wrap gap-3",
   ctaPrimary:
@@ -150,9 +152,9 @@ function Hero() {
       <div className="hidden lg:block">
         <div className={styles.heroWrap}>
           <div>
-            <h1 className={styles.heroH1}>Simplifying Your Healthcare Journey..</h1>
+            <h1 className={styles.heroH1}>Simplifying Your Healthcare Journey</h1>
             <div className={styles.heroCtaRow}>
-              <a href="/services" className={styles.ctaPrimary}>Get Services</a>
+              <Link to="/services" className={styles.ctaPrimary}>Get Services</Link>
             </div>
           </div>
           
@@ -177,15 +179,15 @@ function Hero() {
         <div className="grid grid-cols-3 items-center gap-4">
           {/* Col 1: Text content */}
           <div>
-            <h1 className="text-4xl font-semibold leading-tight text-gray-900 mb-6">
-              Simplifying Your<br/>Healthcare<br/>Journey..
+            <h1 className="text-[clamp(2rem,5vw,3.25rem)] font-extrabold leading-tight text-gray-900 mb-6">
+              Simplifying Your<br/>Healthcare<br/>Journey
             </h1>
-            <a 
-              href="/services" 
+            <Link 
+              to="/services" 
               className="inline-flex items-center justify-center h-11 px-7 bg-[#AF85D9] text-white font-bold text-sm rounded-xl hover:brightness-110 transition"
             >
               Get Services
-            </a>
+            </Link>
           </div>
 
           {/* Col 2: Caregiver Image */}
@@ -212,13 +214,13 @@ function Hero() {
       <div className="min-[650px]:hidden relative px-6 pt-10 pb-8 bg-white">
         {/* Heading with proper spacing */}
         <div className="mb-10">
-          <h1 className="text-[3.8rem] leading-[0.9] font-black text-gray-900">
+          <h1 className="text-[clamp(2rem,8vw,2.75rem)] leading-[0.95] font-extrabold text-gray-900">
             Simplifying
           </h1>
           
           {/* Your + Caregiver image in a row */}
           <div className="flex items-center gap-3 my-2">
-            <h1 className="text-[3.8rem] leading-[0.9] font-black text-gray-900">
+            <h1 className="text-[clamp(2rem,8vw,2.75rem)] leading-[0.95] font-extrabold text-gray-900">
               Your
             </h1>
             <img
@@ -228,22 +230,22 @@ function Hero() {
             />
           </div>
           
-          <h1 className="text-[3.8rem] mb-5 leading-[0.9] font-black text-gray-900">
+          <h1 className="text-[clamp(2rem,8vw,2.75rem)] mb-5 leading-[0.95] font-extrabold text-gray-900">
             Healthcare
           </h1>
-          <h1 className="text-[3.8rem] mt-2 leading-[0.9] font-black text-gray-900">
-            Journey..
+          <h1 className="text-[clamp(2rem,8vw,2.75rem)] mt-2 leading-[0.95] font-extrabold text-gray-900">
+            Journey
           </h1>
         </div>
 
         {/* Buttons */}
         <div className="space-y-4 mb-10">
-          <a 
-            href="/services" 
+          <Link 
+            to="/services" 
             className="inline-flex items-center justify-center h-14 px-10 bg-[#AF85D9] text-white font-bold text-base rounded-2xl hover:brightness-110 transition"
           >
             Get Services
-          </a>
+          </Link>
         </div>
 
         {/* Large Heart Logo at Bottom */}
