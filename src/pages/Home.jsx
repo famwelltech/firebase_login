@@ -45,7 +45,7 @@ const styles = {
   heroCareImg:
     "absolute left-1/2 -translate-x-1/2 bottom-0 md:-bottom-10 lg:-bottom-16 z-20 w-auto object-contain h-[200px] sm:h-[300px] md:h-[360px] lg:h-[450px]",
   // Services
-  servicesSec: "relative bg-[#8FC890] overflow-hidden p-20 pt-40",
+  servicesSec: "relative bg-[#8FC890] overflow-hidden px-5 py-16 sm:px-12 sm:py-24 lg:p-20 lg:pt-40",
   servicesGrid:
     "mx-auto max-w-7xl   grid lg:grid-cols-[340px,1fr] gap-10 items-start",
   servicesLeft: "flex justify-start -ml-4 m-5",
@@ -54,9 +54,9 @@ const styles = {
   servicesPanel:
     "relative rounded-2xl border border-[#78D9AA] bg-[#BFEFCC] p-6 sm:p-8 overflow-hidden",
   servicesDeco1:
-    "pointer-events-none absolute left-0 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5A9E7A]/60",
+    "pointer-events-none absolute left-0 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5A9E7A]/60 hidden min-[650px]:block",
   servicesDeco2:
-    "pointer-events-none absolute right-0 bottom-0 h-[550px] w-[550px] translate-x-1/3 translate-y-1/3 rounded-full bg-[#5A9E7A]/60",
+    "pointer-events-none absolute right-0 bottom-0 h-[550px] w-[550px] translate-x-1/3 translate-y-1/3 rounded-full bg-[#5A9E7A]/60 hidden min-[650px]:block",
   // Services
 // Services
 servicesList: "grid sm:grid-cols-2 gap-x-24 gap-y-12",
@@ -76,18 +76,18 @@ servicesItemDesc: "mt-2 text-[16px] leading-6 font-semibold max-w-[32ch]",
   whyAccent: "h-2 w-full rounded-full bg-[#BFEFCC] mb-8",
   whyGridWrap: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
   whyH2: "text-5xl font-extrabold text-center tracking-tight",
-  whyGrid: "mt-12 grid gap-y-12 gap-x-10 sm:grid-cols-2 lg:grid-cols-3",
+  whyGrid: "mt-12 grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3",
   whyCard: "text-center",
   whyIconWrap: "mx-auto mb-6 md:mb-8 grid place-items-center",
-  whyIcon: "h-[240px] w-[240px] object-cover",
+  whyIcon: "h-28 w-28 sm:h-[240px] sm:w-[240px] object-cover",
   whyTitle: "text-3xl font-bold",
   whyDesc: "mt-2 text-md leading-relaxed text-gray-600 max-w-xs mx-auto",
-  promoSec: "relative overflow-hidden bg-[#8F5DD3] text-white py-14 lg:py-16",
+  promoSec: "relative overflow-hidden bg-[#8F5DD3] text-white py-8 sm:py-10 md:py-12 lg:py-14",
   promoDeco1:
     "pointer-events-none absolute -bottom-24 -left-24 h-[260px] w-[260px] rounded-full bg-white/20",
   promoDeco2:
     "pointer-events-none absolute -top-24 -right-24 h-[220px] w-[220px] rounded-full bg-white/20",
-  promoWrap: "relative mx-auto max-w-7xl px-2 sm:px-2 lg:px-4",
+  promoWrap: "relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
   promoGrid: "grid lg:grid-cols-2 items-center p-5 m-5",
   promoH2: "text-4xl sm:text-5xl lg:text-5xl font-extrabold leading-tight",
   promoSub: "mt-4 text-white/90 text-base sm:text-[17px]",
@@ -95,14 +95,14 @@ servicesItemDesc: "mt-2 text-[16px] leading-6 font-semibold max-w-[32ch]",
   promoInput:
     "flex-1 px-5 py-3 text-gray-900 placeholder-gray-500 focus:outline-none text-base bg-transparent",
   promoBtn:
-    "px-5 md:px-6 py-2.5 font-semibold text-black bg-[#A4E07F] hover:brightness-105 transition text-base flex items-center gap-2 border-none rounded-full",
-  promoRight: "relative h-[320px] sm:h-[400px] lg:h-[500px]",
+    "px-6 py-3 font-black text-black bg-[#8FC890] hover:brightness-105 transition text-base flex items-center gap-2 border-none rounded-full",
+  promoRight: "relative h-[380px] sm:h-[420px] md:h-[460px] lg:h-[500px] xl:h-[540px]",
   promoPhone:
-    "absolute bottom-0 right-12 sm:right-16 lg:right-20 h-[320px] sm:h-[400px] lg:h-[480px] z-[1] drop-shadow-2xl",
+    "absolute bottom-0 right-12 sm:right-16 lg:right-20 h-[90%] sm:h-[92%] lg:h-[95%] w-auto z-[1] drop-shadow-2xl object-contain",
   promoShadow:
     "absolute right-8 sm:right-12 lg:right-16 bottom-0 w-[200px] sm:w-[260px] lg:w-[320px] h-[60px] sm:h-[80px] lg:h-[100px] rounded-full bg-black/30 blur-3xl",
   promoChar:
-    "absolute bottom-0 right-6 sm:right-8 lg:right-12 h-[180px] sm:h-[220px] lg:h-[260px] z-[2]",
+    "absolute bottom-0 right-6 sm:right-8 lg:right-12 h-[52%] sm:h-[55%] lg:h-[58%] w-auto z-[2] object-contain",
   // Mission
   missionSec: "py-16",
   missionBar: "h-1 w-full bg-[#8F5DD3]",
@@ -145,29 +145,115 @@ function Hero() {
   return (
     <section className={styles.heroSec}>
       <div className={styles.heroBg} />
-      <div className={styles.heroWrap}>
-        <div>
-          <h1 className={styles.heroH1}>Simplifying Your Healthcare Journey..</h1>
-          <div className={styles.heroCtaRow}>
-            <a href="/services" className={styles.ctaPrimary}>Get Services</a>
+      
+      {/* Desktop Layout (lg and above - 1024px+) */}
+      <div className="hidden lg:block">
+        <div className={styles.heroWrap}>
+          <div>
+            <h1 className={styles.heroH1}>Simplifying Your Healthcare Journey..</h1>
+            <div className={styles.heroCtaRow}>
+              <a href="/services" className={styles.ctaPrimary}>Get Services</a>
+            </div>
           </div>
-        </div>
-        
-        {/* Right visual stack: large heart logo with overlapping caregiver illustration */}
-        <div className="relative w-full h-[260px] sm:h-[320px] lg:h-[380px] justify-between flex">
-          {/* Heart/brand mark */}
+          
+          <div className="relative w-full h-[260px] sm:h-[320px] lg:h-[380px] justify-between flex">
+            <img
+              src={favProp}
+              alt="Famwell brand"
+              className="absolute top-5 right-0 h-full w-auto object-contain"
+            />
+          </div>
+          
           <img
-            src={favProp}
-            alt="Famwell brand"
-            className="absolute top-5 right-0 h-full w-auto object-contain"
+            src={carePeople}
+            alt="Caregiver with patient"
+            className={styles.heroCareImg}
           />
         </div>
-        {/* Centered caregiver illustration (larger, horizontally centered, and slightly lower) */}
-        <img
-          src={carePeople}
-          alt="Caregiver with patient"
-          className={styles.heroCareImg}
-        />
+      </div>
+
+      {/* Tablet Layout (650px - 1024px) */}
+      <div className="hidden min-[650px]:block lg:hidden relative px-6 py-12 bg-white">
+        <div className="grid grid-cols-3 items-center gap-4">
+          {/* Col 1: Text content */}
+          <div>
+            <h1 className="text-4xl font-semibold leading-tight text-gray-900 mb-6">
+              Simplifying Your<br/>Healthcare<br/>Journey..
+            </h1>
+            <a 
+              href="/services" 
+              className="inline-flex items-center justify-center h-11 px-7 bg-[#AF85D9] text-white font-bold text-sm rounded-xl hover:brightness-110 transition"
+            >
+              Get Services
+            </a>
+          </div>
+
+          {/* Col 2: Caregiver Image */}
+          <div className="flex justify-center">
+            <img
+              src={carePeople}
+              alt="Caregiver"
+              className="w-auto h-[240px] md:h-[280px] object-contain"
+            />
+          </div>
+
+          {/* Col 3: Heart Logo */}
+          <div className="flex justify-center">
+            <img
+              src={favProp}
+              alt="Famwell"
+              className="w-auto h-[220px] object-contain"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Layout (below 650px) */}
+      <div className="min-[650px]:hidden relative px-6 pt-10 pb-8 bg-white">
+        {/* Heading with proper spacing */}
+        <div className="mb-10">
+          <h1 className="text-[3.8rem] leading-[0.9] font-black text-gray-900">
+            Simplifying
+          </h1>
+          
+          {/* Your + Caregiver image in a row */}
+          <div className="flex items-center gap-3 my-2">
+            <h1 className="text-[3.8rem] leading-[0.9] font-black text-gray-900">
+              Your
+            </h1>
+            <img
+              src={carePeople}
+              alt="Caregiver"
+              className="w-[120px] h-auto object-contain"
+            />
+          </div>
+          
+          <h1 className="text-[3.8rem] mb-5 leading-[0.9] font-black text-gray-900">
+            Healthcare
+          </h1>
+          <h1 className="text-[3.8rem] mt-2 leading-[0.9] font-black text-gray-900">
+            Journey..
+          </h1>
+        </div>
+
+        {/* Buttons */}
+        <div className="space-y-4 mb-10">
+          <a 
+            href="/services" 
+            className="inline-flex items-center justify-center h-14 px-10 bg-[#AF85D9] text-white font-bold text-base rounded-2xl hover:brightness-110 transition"
+          >
+            Get Services
+          </a>
+        </div>
+
+        {/* Large Heart Logo at Bottom */}
+        <div className="w-full">
+          <img
+            src={favProp}
+            alt="Famwell"
+            className="w-full max-w-sm mx-auto h-auto object-contain"
+          />
+        </div>
       </div>
     </section>
   );
@@ -185,45 +271,96 @@ function ServicesSection() {
 
   return (
     <section id="services" className={styles.servicesSec}>
-      {/* Decorative circles */}
+      {/* Decorative circles - hidden on mobile */}
       <div className={styles.servicesDeco1} />
       <div className={styles.servicesDeco2} />
-      
-      <div className={styles.servicesGrid}>
-        {/* Left column illustration (unchanged) */}
-        <div className={styles.servicesLeft}>
-          <img src={peopleColumn} alt="Care helpers" className={styles.servicesLeftImg} />
-        </div>
 
-        {/* Services content - without the box wrapper */}
-        <div className="relative">
-          <div className={styles.servicesList}>
-            {items.map(({ title, desc, image }, i) => (
-              <div key={i} className="flex items-start gap-6 m-3">
-                {/* Icon without white background */}
-                <div className={styles.servicesTile} aria-hidden="true">
-                  <div className="h-[150px] w-[150px] rounded-xl flex-shrink-0">
-                    <img
-                      src={image}
-                      alt=""
-                      className=" object-contain"
-                      loading="lazy"
-                    />
+      {/* ≥650px: keep existing layout */}
+      <div className="hidden min-[650px]:block">
+        <div className={styles.servicesGrid}>
+          {/* Left column illustration */}
+          <div className={styles.servicesLeft}>
+            <img src={peopleColumn} alt="Care helpers" className={styles.servicesLeftImg} />
+          </div>
+
+          {/* Services content */}
+          <div className="relative">
+            <div className={styles.servicesList}>
+              {items.map(({ title, desc, image }, i) => (
+                <div key={i} className="flex items-start gap-6 m-3">
+                  <div className={styles.servicesTile} aria-hidden="true">
+                    <div className="h-[150px] w-[150px] rounded-xl flex-shrink-0">
+                      <img src={image} alt="" className="object-contain" loading="lazy" />
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    <div className={styles.servicesItemTitle}>{title}</div>
+                    <p className={styles.servicesItemDesc}>{desc}</p>
                   </div>
                 </div>
+              ))}
+            </div>
 
-                {/* Copy */}
-                <div className="pt-2">
-                  <div className={styles.servicesItemTitle}>{title}</div>
-                  <p className={styles.servicesItemDesc}>{desc}</p>
-                </div>
+            <div className={styles.learnMoreRow}>
+              <a href="/services" className={styles.learnMoreBtn}>Learn More →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <650px: mobile layout with semi-circle accents */}
+      <div className="min-[650px]:hidden relative">
+        {/* Mobile decorative semi-circles */}
+        <div className="pointer-events-none absolute -top-20 -right-16 h-[180px] w-[180px] rounded-full bg-[#5A9E7A]/40" />
+        <div className="pointer-events-none absolute -bottom-24 -left-20 h-[200px] w-[200px] rounded-full bg-[#5A9E7A]/30" />
+        
+        {/* Section heading */}
+        <div className="px-6 relative z-10">
+          <h2 className="text-[46px] leading-[0.96] font-extrabold tracking-tight text-black text-center">
+            Our
+            <br />
+            Services
+          </h2>
+        </div>
+
+        {/* Stacked service blocks */}
+        <div className="mt-8 max-w-[420px] mx-auto space-y-16 mb-5 relative z-10">
+          {items.map(({ title, desc, image }, i) => (
+            <div key={i} className="px-4 relative">
+              {/* Semi-circle dividers alternating left/right */}
+              {i > 0 && (
+                <>
+                  {i % 2 === 1 ? (
+                    // Odd items: semi-circle on left only
+                    <div className="pointer-events-none absolute -top-8 -left-12 h-[80px] w-[80px] rounded-full bg-[#5A9E7A]/25" />
+                  ) : (
+                    // Even items: semi-circle on right only
+                    <div className="pointer-events-none absolute -top-8 -right-12 h-[80px] w-[80px] rounded-full bg-[#5A9E7A]/25" />
+                  )}
+                </>
+              )}
+              
+              {/* Service visual */}
+              <div className="w-full flex justify-center mb-4">
+                <img
+                  src={image}
+                  alt={title}
+                  className="h-[200px] w-auto object-contain drop-shadow-md"
+                  loading="lazy"
+                />
               </div>
-            ))}
-          </div>
 
-          <div className={styles.learnMoreRow}>
-            <a href="/services" className={styles.learnMoreBtn}>Learn More →</a>
-          </div>
+              {/* Title */}
+              <h3 className="text-[40px] leading-[0.96] font-extrabold tracking-tight text-black text-center mb-3">
+                {title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-[15px] leading-6 font-medium text-[#111] text-center">
+                {desc}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -262,30 +399,31 @@ function WhyChooseUs() {
     </section>
   );
 }
-
 /* ------------------------------ App Promo ------------------------------ */
 function AppPromo() {
   return (
     <section className={styles.promoSec}>
+      {/* Background decorative elements */}
       <div className={styles.promoDeco1} />
       <div className={styles.promoDeco2} />
+
       <div className={styles.promoWrap}>
-        <div className={styles.promoGrid}>
-          <div className="ms-5 ps-5">
-            <h2 className={styles.promoH2}>
+        {/* Main content grid for screens 900px and above */}
+        <div className="hidden min-[900px]:grid min-[900px]:grid-cols-2 items-center py-4">
+          <div className="pr-4">
+            <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-tight">
               Our Own Famwellplus application is coming soon ...
             </h2>
-            <p className={styles.promoSub}>Get notification on App release</p>
-            <form className={styles.promoForm} onSubmit={(e) => e.preventDefault()}>
-              {/* pill input + button like mockup */}
-              <div className="flex items-center bg-white rounded-full ring-1 ring-white/30 shadow-sm overflow-hidden">
+            <p className="mt-3 text-white/90 text-[clamp(0.95rem,1.5vw,1.15rem)]">Get notification on App release</p>
+            <form className="mt-5 max-w-md" onSubmit={(e) => e.preventDefault()}>
+              <div className="flex items-stretch gap-4">
                 <input
                   type="tel"
                   placeholder="+91"
-                  className={styles.promoInput}
+                  className="flex-1 px-5 py-3.5 text-gray-900 placeholder-gray-500 focus:outline-none text-[clamp(0.9rem,1.2vw,1rem)] font-medium bg-white rounded-lg shadow-lg border-r-2 border-gray-200"
                 />
-                <button type="submit" className={styles.promoBtn}>
-                  <span className="text-lg">▶</span>
+                <button type="submit" className="px-8 py-3.5 font-black text-black bg-[#8FC890] hover:brightness-105 transition text-[clamp(0.9rem,1.2vw,1rem)] flex items-center justify-center gap-2 border-none whitespace-nowrap rounded-lg shadow-lg">
+                  <span className="text-2xl leading-none">▶</span>
                   <span>Send</span>
                 </button>
               </div>
@@ -297,6 +435,35 @@ function AppPromo() {
             <img src={character} alt="Character" className={styles.promoChar} />
             {/* Character shadow */}
             <div className="absolute right-4 sm:right-6 lg:right-10 bottom-0 w-[120px] sm:w-[140px] lg:w-[160px] h-[40px] sm:h-[50px] lg:h-[60px] rounded-full bg-black/30 blur-3xl z-[1]" />
+          </div>
+        </div>
+
+        {/* Mobile-specific layout: text on top, image below (below 900px) */}
+        <div className="min-[900px]:hidden flex flex-col items-center text-center px-4 py-6">
+          <h2 className="text-[clamp(1.75rem,5vw,2.5rem)] font-extrabold leading-tight text-white">
+            Our Own Famwellplus application is coming soon ...
+          </h2>
+          <p className="mt-3 text-white/90 text-[clamp(0.9rem,3vw,1.1rem)]">Get notification on App release</p>
+          <form className="mt-5 max-w-md w-full" onSubmit={(e) => e.preventDefault()}>
+            <div className="flex items-stretch gap-3 mx-auto">
+              <input
+                type="tel"
+                placeholder="+91"
+                className="flex-1 px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none text-sm font-medium bg-white rounded-lg shadow-lg border-r-2 border-gray-200"
+              />
+              <button type="submit" className="px-6 py-3 font-black text-black bg-[#8FC890] hover:brightness-105 transition text-sm flex items-center justify-center gap-2 border-none whitespace-nowrap rounded-lg shadow-lg">
+                <span className="text-lg leading-none">▶</span>
+                <span>Send</span>
+              </button>
+            </div>
+          </form>
+
+          {/* Image stack for mobile, centered */}
+          <div className="relative mt-6 h-[400px] sm:h-[450px] w-full max-w-sm mx-auto">
+            <img src={phone13Pro} alt="App preview" className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[95%] w-auto object-contain z-[1] drop-shadow-2xl" />
+            <img src={character} alt="Character" className="absolute bottom-0 right-8 h-[55%] w-auto object-contain z-[2]" />
+            {/* Character shadow */}
+            <div className="absolute right-10 bottom-0 w-[140px] h-[50px] rounded-full bg-black/30 blur-3xl z-[1]" />
           </div>
         </div>
       </div>
