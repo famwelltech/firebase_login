@@ -46,7 +46,8 @@ const About = () => {
         </div>
       </div>
 
-      <div className="relative py-3 px-4 md:px-20 bg-white flex flex-col md:flex-row items-center justify-between text-left">
+  {/* Our Story row — spacing tuned to match Figma */}
+  <div className="relative py-12 md:py-16 lg:py-20 px-6 md:px-28 lg:px-36 bg-white flex flex-col md:flex-row items-center text-left gap-40 md:gap-50 lg:gap-50">
         <div className="absolute top-1/2 left-0 z-0">
           <img
             src={PurpleGradient}
@@ -55,7 +56,8 @@ const About = () => {
           />
         </div>
 
-        <div className="relative z-10 flex-shrink-0 mb-8 md:mb-0 md:mr-12">
+        {/* Left illustration (remove large right margin; gap now controls spacing) */}
+        <div className="relative z-10 flex-shrink-0 mb-8 md:mb-0">
           <img
             src={OurStoryImg}
             alt="An illustrated family"
@@ -63,6 +65,7 @@ const About = () => {
           />
         </div>
 
+        {/* Text column with controlled line length */}
         <div className="relative z-10 max-w-xl">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
             Our Story
@@ -77,7 +80,8 @@ const About = () => {
         </div>
       </div>
 
-      <div className="relative py-3 px-4 md:px-20 bg-white flex flex-col-reverse md:flex-row items-center justify-between text-left">
+  {/* What We Do row — align text inset to match 'Our Story' and space from image */}
+  <div className="relative py-12 md:py-16 lg:py-20 px-6 md:px-28 lg:px-36 bg-white flex flex-col-reverse md:flex-row items-center text-left gap-14 md:gap-28 lg:gap-28">
         <div className="absolute top-1/2 right-0 z-0">
           <img
             src={GreenGradient}
@@ -86,7 +90,7 @@ const About = () => {
           />
         </div>
 
-        <div className="relative z-10 max-w-xl mb-8 md:mb-0 md:mr-12">
+  <div className="relative z-10 max-w-xl mb-8 md:mb-0">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
             What We Do
           </h2>
@@ -99,7 +103,7 @@ const About = () => {
           </ul>
         </div>
 
-        <div className="relative z-10 flex-shrink-0 mb-8 md:mb-0">
+        <div className="relative z-10 flex-shrink-0 mb-8 md:mb-0 md:ml-auto">
           <img
             src={WhatWeDoImg}
             alt="What We Do illustration"
@@ -108,7 +112,8 @@ const About = () => {
         </div>
       </div>
 
-      <div className="relative py-3 px-4 md:px-20 bg-white flex flex-col md:flex-row items-center justify-between text-left">
+  {/* Our Technology row — normalize padding and use gap so left image aligns with next section text */}
+  <div className="relative py-12 md:py-16 lg:py-20 px-6 md:px-28 lg:px-36 bg-white flex flex-col md:flex-row items-center text-left gap-14 md:gap-28 lg:gap-28">
         <div className="absolute top-1/2 left-0 z-0">
           <img
             src={PurpleGradient}
@@ -117,7 +122,7 @@ const About = () => {
           />
         </div>
 
-        <div className="relative z-10 flex-shrink-0 mb-8 md:mb-0 md:mr-12">
+        <div className="relative z-10 flex-shrink-0 mb-8 md:mb-0">
           <img
             src={OurTechnologyImg}
             alt="Our Technology illustration"
@@ -146,7 +151,8 @@ const About = () => {
         </div>
       </div>
 
-      <div className="relative py-3 px-4 md:px-20 bg-white flex flex-col-reverse md:flex-row items-center justify-between text-left">
+  {/* Collaboration row — align left edge with image in the row above and push right image out */}
+  <div className="relative py-12 md:py-16 lg:py-20 px-6 md:px-28 lg:px-36 bg-white flex flex-col-reverse md:flex-row items-center text-left gap-14 md:gap-28 lg:gap-28">
         <div className="absolute top-1/2 right-0 z-0">
           <img
             src={GreenGradient}
@@ -155,7 +161,7 @@ const About = () => {
           />
         </div>
 
-        <div className="relative z-10 max-w-xl mb-8 md:mb-0 md:mr-12">
+        <div className="relative z-10 max-w-xl mb-8 md:mb-0">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
             Collaboration for Better Care
           </h2>
@@ -167,7 +173,7 @@ const About = () => {
           </p>
         </div>
 
-        <div className="relative z-10 flex-shrink-0 mb-8 md:mb-0">
+        <div className="relative z-10 flex-shrink-0 mb-8 md:mb-0 md:ml-auto">
           <img
             src={CollaborationImg}
             alt="Collaboration illustration"

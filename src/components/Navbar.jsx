@@ -59,12 +59,9 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
           <Link
             to="/sign"
-            className="relative p-[2px] rounded-lg font-medium transition-all duration-300 group"
+            className="px-8 py-[10px] rounded-lg font-medium font-bold text-white bg-[#AF85D9] hover:brightness-110 transition"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-[#AF85D9] to-[#8FC890] rounded-lg"></span>
-            <span className="relative block px-7 py-2 bg-white font-bold rounded-lg hover:text-black transition">
-              Sign Up
-            </span>
+            Sign Up
           </Link>
 
           <Link
@@ -113,13 +110,10 @@ const Navbar = () => {
           <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
             <Link
               to="/sign"
-              className="relative p-[2px] rounded-lg font-medium transition-all duration-300 text-center"
+              className="px-8 py-[10px] rounded-lg font-medium font-bold text-white bg-[#AF85D9] text-center"
               onClick={() => setIsMenuOpen(false)}
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-[#AF85D9] to-[#8FC890] rounded-lg"></span>
-              <span className="relative block px-7 py-2 bg-white font-bold rounded-lg">
-                Sign Up
-              </span>
+              Sign Up
             </Link>
 
             <Link
