@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { auth } from "../firebase/config";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
-// Single-file demo of all three screens (no TypeScript). TailwindCSS required.
 export default function CreateAccountScreens() {
   const [step, setStep] = useState(1);
 
-  // Step 1 state
+  // Step 1
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -13,50 +14,135 @@ export default function CreateAccountScreens() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [touched, setTouched] = useState({});
 
-  // Step 2 state (OTP)
+  // Step 2 (OTP)
   const OTP_LEN = 6;
   const [otp, setOtp] = useState(Array(OTP_LEN).fill(""));
   const inputsRef = useRef([]);
   const [resendIn, setResendIn] = useState(0);
+  const [confirmationResult, setConfirmationResult] = useState(null);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [verifyLoading, setVerifyLoading] = useState(false);
+  const [lastOtpSent, setLastOtpSent] = useState(0);
+  const [idToken, setIdToken] = useState(null);
 
-  // Step 3 state (consent)
+  // Step 3 (consents)
   const [consentMedical, setConsentMedical] = useState(false);
   const [consentTerms, setConsentTerms] = useState(false);
 
   // Validators (step 1)
-  const emailValid = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email), [email]);
+  const emailValid = useMemo(
+    () => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email),
+    [email]
+  );
   const phoneDigits = useMemo(() => phone.replace(/\D/g, ""), [phone]);
   const phoneValid = useMemo(() => {
-    return phone.startsWith('+') && phoneDigits.length >= 10 && phoneDigits.length <= 13;
+    return phone.startsWith("+") && phoneDigits.length >= 10 && phoneDigits.length <= 15;
   }, [phone, phoneDigits]);
   const passwordValid = useMemo(() => password.length >= 8, [password]);
-  const passwordsMatch = useMemo(() => password === confirm && confirm.length > 0, [password, confirm]);
+  const passwordsMatch = useMemo(
+    () => password === confirm && confirm.length > 0,
+    [password, confirm]
+  );
   const step1Valid = emailValid && phoneValid && passwordValid && passwordsMatch;
 
   function handlePhoneChange(e) {
     let value = e.target.value;
-    // Auto-add + if user starts typing digits
-    if (value && !value.startsWith('+') && /^\d/.test(value)) {
-      value = '+91' + value;
+    if (value && !value.startsWith("+") && /^\d/.test(value)) {
+      value = "+91" + value;
     }
     setPhone(value);
   }
 
   function inputClass(valid) {
-    return `w-full rounded-lg border ${valid ? "border-gray-200 focus:border-purple-400" : "border-red-300 focus:border-red-400"} bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-200 transition px-3 py-2.5`;
+    return `w-full rounded-lg border ${
+      valid ? "border-gray-200 focus:border-purple-400" : "border-red-300 focus:border-red-400"
+    } bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-200 transition px-3 py-2.5`;
   }
 
+  function handleBlur(name) {
+    setTouched((t) => ({ ...t, [name]: true }));
+  }
 
-  function handleBlur(name) { setTouched((t) => ({ ...t, [name]: true })); }
-
-  function goNextFrom1(e) {
+  async function goNextFrom1(e) {
     e.preventDefault();
     setTouched({ email: true, phone: true, password: true, confirm: true });
     if (!step1Valid) return;
-    // Trigger fake OTP send
-    setResendIn(30);
-    setStep(2);
+    await sendOTP();
   }
+
+
+
+  /** Send OTP using Firebase Phone Authentication */
+  async function sendOTP() {
+    try {
+      const now = Date.now();
+      if (now - lastOtpSent < 60000) {
+        alert("Please wait 1 minute before requesting another OTP.");
+        return;
+      }
+
+      if (!phone || !phone.startsWith("+") || phoneDigits.length < 10) {
+        alert("Please enter a valid phone number with country code (e.g., +919876543210)");
+        return;
+      }
+
+      setOtpLoading(true);
+
+      // Clear existing reCAPTCHA
+      if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.clear();
+        window.recaptchaVerifier = null;
+      }
+
+      // Create reCAPTCHA verifier
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'send-otp-button', {
+        'size': 'invisible',
+        'callback': () => {
+          console.log('reCAPTCHA solved');
+        }
+      });
+
+      // Send OTP
+      const confirmation = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+      
+      setConfirmationResult(confirmation);
+      setLastOtpSent(now);
+      setResendIn(30);
+      setStep(2);
+      
+    } catch (error) {
+      console.error("Failed to send OTP:", error);
+      
+      if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.clear();
+        window.recaptchaVerifier = null;
+      }
+      
+      let msg = "Failed to send OTP. ";
+      if (error.code === "auth/too-many-requests") {
+        msg += "Too many requests. Try again later.";
+      } else if (error.code === "auth/invalid-phone-number") {
+        msg += "Invalid phone number format.";
+      } else {
+        msg += error.message || "Please try again.";
+      }
+      alert(msg);
+    } finally {
+      setOtpLoading(false);
+    }
+  }
+
+
+
+  // Cleanup reCAPTCHA on unmount
+  useEffect(() => {
+    return () => {
+      if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.clear();
+        window.recaptchaVerifier = null;
+      }
+    };
+  }, []);
 
   // Resend countdown
   useEffect(() => {
@@ -74,9 +160,7 @@ export default function CreateAccountScreens() {
   }
 
   function handleOtpKeyDown(i, e) {
-    if (e.key === "Backspace" && !otp[i] && i > 0) {
-      inputsRef.current[i - 1]?.focus();
-    }
+    if (e.key === "Backspace" && !otp[i] && i > 0) inputsRef.current[i - 1]?.focus();
     if (e.key === "ArrowLeft" && i > 0) inputsRef.current[i - 1]?.focus();
     if (e.key === "ArrowRight" && i < OTP_LEN - 1) inputsRef.current[i + 1]?.focus();
   }
@@ -92,29 +176,55 @@ export default function CreateAccountScreens() {
 
   const otpFilled = otp.join("").length === OTP_LEN;
 
-  function verifyOtp() {
-    if (!otpFilled) return;
-    // Mock verify
-    setStep(3);
+  async function verifyOtp() {
+    if (!otpFilled || !confirmationResult) return;
+    try {
+      setVerifyLoading(true);
+      const result = await confirmationResult.confirm(otp.join(""));
+      const token = await result.user.getIdToken();
+      setIdToken(token);
+      setStep(3);
+    } catch (error) {
+      console.error("Error verifying OTP:", error);
+      alert("Invalid OTP. Please try again.");
+      setOtp(Array(OTP_LEN).fill(""));
+    } finally {
+      setVerifyLoading(false);
+    }
   }
 
   const canCreate = consentMedical && consentTerms;
-  function createAccount() {
+  
+  async function createAccount() {
     if (!canCreate) return;
-    alert(
-      JSON.stringify(
-        {
+    if (!idToken) {
+      alert("Please verify your phone first.");
+      return;
+    }
+    try {
+      const res = await fetch("/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          idToken,
+          displayName: email.split("@")[0] || "User",
           email,
-          phone: phone,
-          password: "•".repeat(password.length),
-          otp: otp.join(""),
-          consentMedical,
-          consentTerms,
-        },
-        null,
-        2
-      )
-    );
+          consents: { medical: consentMedical, terms: consentTerms },
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to create account");
+      }
+
+      alert("Account created successfully!");
+      window.location.href = "/dashboard";
+    } catch (error) {
+      console.error("Error creating account:", error);
+      alert(error.message || "Failed to create account. Please try again.");
+    }
   }
 
   return (
@@ -122,13 +232,18 @@ export default function CreateAccountScreens() {
       <div className="w-full max-w-3xl">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-4 select-none">
-          <img src="/static/media/FamWellLogo.3976bc0fcb465972f716.png" alt="FamWell Logo" className="w-35 h-12" />
-          {/* <span className="text-2xl font-semibold tracking-tight"><span className="text-gray-800">fam</span><span className="text-purple-500">welt</span><sup className="text-purple-400 align-super text-xs font-bold">+</sup></span> */}
+          <img
+            src="/static/media/FamWellLogo.3976bc0fcb465972f716.png"
+            alt="FamWell Logo"
+            className="w-35 h-12"
+          />
         </div>
 
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-black/5 p-6">
           <h2 className="text-gray-800 font-semibold">Create Your Account</h2>
-          <p className="text-sm text-gray-500 mt-1">Choose your account type to get started</p>
+          <p className="text-sm text-gray-500 mt-1">
+            Choose your account type to get started
+          </p>
 
           {/* Stepper */}
           <div className="mt-4 flex items-center gap-6">
@@ -158,9 +273,7 @@ export default function CreateAccountScreens() {
                   autoComplete="email"
                   required
                 />
-                {touched.email && !emailValid && (
-                  <ErrorText>Enter a valid email address.</ErrorText>
-                )}
+                {touched.email && !emailValid && <ErrorText>Enter a valid email address.</ErrorText>}
               </Field>
 
               <Field label="Mobile Number" htmlFor="phone">
@@ -173,7 +286,7 @@ export default function CreateAccountScreens() {
                   onBlur={() => handleBlur("phone")}
                   className={inputClass(!touched.phone || phoneValid)}
                   autoComplete="tel"
-                  maxLength={14}
+                  maxLength={16}
                   required
                 />
                 {touched.phone && !phoneValid && (
@@ -230,22 +343,30 @@ export default function CreateAccountScreens() {
                     {showConfirm ? <EyeOff /> : <Eye />}
                   </button>
                 </div>
-                {touched.confirm && !passwordsMatch && (
-                  <ErrorText>Passwords do not match.</ErrorText>
-                )}
+                {touched.confirm && !passwordsMatch && <ErrorText>Passwords do not match.</ErrorText>}
               </Field>
 
               <button
+                id="send-otp-button"
                 type="submit"
-                disabled={!step1Valid}
+                disabled={!step1Valid || otpLoading}
                 className="w-full mt-2 inline-flex justify-center items-center rounded-lg bg-purple-500 text-white font-medium py-2.5 px-4 shadow-sm hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
               >
-                Continue
+                {otpLoading ? "Sending OTP..." : "Continue"}
               </button>
 
+              {/* reCAPTCHA container (invisible) */}
+              <div id="recaptcha-container" />
+
               <p className="text-center text-sm text-gray-600 pt-2">
-                Already have an account?{' '}
-                <button type="button" onClick={() => window.location.href = '/login'} className="text-purple-600 hover:text-purple-700 font-medium underline-offset-2 hover:underline bg-transparent border-none cursor-pointer">Login here</button>
+                Already have an account?{" "}
+                <button
+                  type="button"
+                  onClick={() => (window.location.href = "/login")}
+                  className="text-purple-600 hover:text-purple-700 font-medium underline-offset-2 hover:underline bg-transparent border-none cursor-pointer"
+                >
+                  Login here
+                </button>
               </p>
             </form>
           )}
@@ -282,7 +403,13 @@ export default function CreateAccountScreens() {
                   {resendIn > 0 ? (
                     <span className="text-gray-500">Resend OTP in {resendIn}s</span>
                   ) : (
-                    <button className="text-purple-600 hover:text-purple-700 font-medium" onClick={() => setResendIn(30)}>Resend OTP</button>
+                    <button
+                      className="text-purple-600 hover:text-purple-700 font-medium"
+                      onClick={sendOTP}
+                      disabled={otpLoading}
+                    >
+                      {otpLoading ? "Sending..." : "Resend OTP"}
+                    </button>
                   )}
                 </div>
               </div>
@@ -296,16 +423,22 @@ export default function CreateAccountScreens() {
                 </button>
                 <button
                   className="flex-1 rounded-lg bg-purple-500 text-white py-2.5 font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-600"
-                  disabled={!otpFilled}
+                  disabled={!otpFilled || verifyLoading}
                   onClick={verifyOtp}
                 >
-                  Verify & Continue
+                  {verifyLoading ? "Verifying..." : "Verify & Continue"}
                 </button>
               </div>
 
               <p className="text-center text-sm text-gray-600 pt-1">
-                Already have an account?{' '}
-                <button type="button" onClick={() => window.location.href = '/login'} className="text-purple-600 hover:text-purple-700 font-medium underline-offset-2 hover:underline bg-transparent border-none cursor-pointer">Login here</button>
+                Already have an account?{" "}
+                <button
+                  type="button"
+                  onClick={() => (window.location.href = "/login")}
+                  className="text-purple-600 hover:text-purple-700 font-medium underline-offset-2 hover:underline bg-transparent border-none cursor-pointer"
+                >
+                  Login here
+                </button>
               </p>
             </div>
           )}
@@ -318,21 +451,41 @@ export default function CreateAccountScreens() {
 
               <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" className="mt-1 h-4 w-4" checked={consentMedical} onChange={(e) => setConsentMedical(e.target.checked)} />
+                  <input
+                    type="checkbox"
+                    className="mt-1 h-4 w-4"
+                    checked={consentMedical}
+                    onChange={(e) => setConsentMedical(e.target.checked)}
+                  />
                   <div>
                     <p className="font-medium text-gray-800">Medical Records Consent</p>
-                    <p className="text-sm text-gray-600">I consent to upload and store my medical records securely on this platform. I understand that this information will be used to provide better healthcare assistance and will only be accessed by authorized healthcare providers.</p>
+                    <p className="text-sm text-gray-600">
+                      I consent to upload and store my medical records securely on this platform. I understand that this
+                      information will be used to provide better healthcare assistance and will only be accessed by
+                      authorized healthcare providers.
+                    </p>
                   </div>
                 </label>
               </div>
 
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" className="mt-1 h-4 w-4" checked={consentTerms} onChange={(e) => setConsentTerms(e.target.checked)} />
+                  <input
+                    type="checkbox"
+                    className="mt-1 h-4 w-4"
+                    checked={consentTerms}
+                    onChange={(e) => setConsentTerms(e.target.checked)}
+                  />
                   <div>
                     <p className="font-medium text-gray-800">Terms and Conditions</p>
-                    <p className="text-sm text-gray-600">I agree to the Health Assist Terms and Conditions, Privacy Policy, and consent to the collection and use of my information as described. I understand that my data will be handled in accordance with applicable healthcare privacy regulations.</p>
-                    <a className="text-sm text-purple-600 hover:text-purple-700 font-medium underline-offset-2 hover:underline cursor-pointer">Read full Terms & Conditions</a>
+                    <p className="text-sm text-gray-600">
+                      I agree to the Health Assist Terms and Conditions, Privacy Policy, and consent to the collection
+                      and use of my information as described. I understand that my data will be handled in accordance
+                      with applicable healthcare privacy regulations.
+                    </p>
+                    <a className="text-sm text-purple-600 hover:text-purple-700 font-medium underline-offset-2 hover:underline cursor-pointer">
+                      Read full Terms & Conditions
+                    </a>
                   </div>
                 </label>
               </div>
@@ -354,8 +507,14 @@ export default function CreateAccountScreens() {
               </div>
 
               <p className="text-center text-sm text-gray-600 pt-1">
-                Already have an account?{' '}
-                <button type="button" onClick={() => window.location.href = '/login'} className="text-purple-600 hover:text-purple-700 font-medium underline-offset-2 hover:underline bg-transparent border-none cursor-pointer">Login here</button>
+                Already have an account?{" "}
+                <button
+                  type="button"
+                  onClick={() => (window.location.href = "/login")}
+                  className="text-purple-600 hover:text-purple-700 font-medium underline-offset-2 hover:underline bg-transparent border-none cursor-pointer"
+                >
+                  Login here
+                </button>
               </p>
             </div>
           )}
@@ -368,8 +527,11 @@ export default function CreateAccountScreens() {
 function Step({ number, active }) {
   return (
     <div className="flex items-center gap-3">
-      <div className={`size-8 rounded-full grid place-items-center text-sm font-semibold border ${active ? "bg-purple-500 text-white border-purple-500" : "bg-gray-100 text-gray-500 border-gray-200"
-        }`}>
+      <div
+        className={`size-8 rounded-full grid place-items-center text-sm font-semibold border ${
+          active ? "bg-purple-500 text-white border-purple-500" : "bg-gray-100 text-gray-500 border-gray-200"
+        }`}
+      >
         {number}
       </div>
     </div>
@@ -379,13 +541,17 @@ function Step({ number, active }) {
 function Field({ label, htmlFor, children }) {
   return (
     <div className="space-y-2">
-      <label htmlFor={htmlFor} className="block text-sm text-gray-700">{label}</label>
+      <label htmlFor={htmlFor} className="block text-sm text-gray-700">
+        {label}
+      </label>
       {children}
     </div>
   );
 }
 
-function ErrorText({ children }) { return <p className="text-xs text-red-600 mt-1">{children}</p>; }
+function ErrorText({ children }) {
+  return <p className="text-xs text-red-600 mt-1">{children}</p>;
+}
 
 function Eye(props) {
   return (
@@ -395,6 +561,7 @@ function Eye(props) {
     </svg>
   );
 }
+
 function EyeOff(props) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" {...props}>
