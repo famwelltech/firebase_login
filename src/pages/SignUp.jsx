@@ -73,11 +73,14 @@ export default function CreateAccountScreens() {
 
 
   /** Send OTP using Firebase Phone Authentication */
-  async function sendOTP() {
+  async function sendOTP(retryCount = 0) {
     try {
       const now = Date.now();
-      if (now - lastOtpSent < 60000) {
-        alert("Please wait 1 minute before requesting another OTP.");
+      const minInterval = Math.min(60000 * Math.pow(2, retryCount), 300000); // Exponential backoff, max 5 min
+      
+      if (now - lastOtpSent < minInterval) {
+        const waitTime = Math.ceil((minInterval - (now - lastOtpSent)) / 1000);
+        alert(`Please wait ${waitTime} seconds before requesting another OTP.`);
         return;
       }
 
@@ -90,39 +93,64 @@ export default function CreateAccountScreens() {
 
       // Clear existing reCAPTCHA
       if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.clear();
+        try {
+          window.recaptchaVerifier.clear();
+        } catch (e) {
+          console.log('Error clearing reCAPTCHA:', e);
+        }
         window.recaptchaVerifier = null;
       }
 
-      // Create reCAPTCHA verifier
+      // Add delay before creating new verifier
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Create reCAPTCHA verifier with retry logic
       window.recaptchaVerifier = new RecaptchaVerifier(auth, 'send-otp-button', {
         'size': 'invisible',
         'callback': () => {
           console.log('reCAPTCHA solved');
+        },
+        'expired-callback': () => {
+          console.log('reCAPTCHA expired');
         }
       });
 
-      // Send OTP
-      const confirmation = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+      // Send OTP with timeout
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Request timeout')), 30000)
+      );
+      
+      const otpPromise = signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+      const confirmation = await Promise.race([otpPromise, timeoutPromise]);
       
       setConfirmationResult(confirmation);
       setLastOtpSent(now);
-      setResendIn(30);
+      setResendIn(60);
       setStep(2);
       
     } catch (error) {
       console.error("Failed to send OTP:", error);
       
       if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.clear();
+        try {
+          window.recaptchaVerifier.clear();
+        } catch (e) {
+          console.log('Error clearing reCAPTCHA:', e);
+        }
         window.recaptchaVerifier = null;
       }
       
       let msg = "Failed to send OTP. ";
       if (error.code === "auth/too-many-requests") {
-        msg += "Too many requests. Try again later.";
+        const waitMinutes = Math.ceil(Math.min(60 * Math.pow(2, retryCount), 300) / 60);
+        msg += `Too many requests. Please wait ${waitMinutes} minutes and try again.`;
+        setResendIn(waitMinutes * 60);
       } else if (error.code === "auth/invalid-phone-number") {
         msg += "Invalid phone number format.";
+      } else if (error.code === "auth/quota-exceeded") {
+        msg += "SMS quota exceeded. Please try again later.";
+      } else if (error.message?.includes('timeout')) {
+        msg += "Request timed out. Please check your connection and try again.";
       } else {
         msg += error.message || "Please try again.";
       }

@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyD6ZV11_BFrLPyQxKSx2brhEck1fghlQAo",
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "famwellplus-auth.firebaseapp.com",
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "famwellplus-auth",
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "famwellplus-auth.appspot.com",
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "240452476147",
-  appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:240452476147:web:05b96a3fdbc2ba9aa16b86",
+  apiKey: "AIzaSyD6ZV11_BFrLPyQxKSx2brhEck1fghlQAo",
+  authDomain: "famwellplus-auth.firebaseapp.com",
+  projectId: "famwellplus-auth",
+  storageBucket: "famwellplus-auth.firebasestorage.app",
+  messagingSenderId: "240452476147",
+  appId: "1:240452476147:web:05b96a3fdbc2ba9aa16b86",
 };
 
 // Validate config before initializing
