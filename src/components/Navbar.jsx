@@ -58,7 +58,7 @@ const Navbar = () => {
         {/* Desktop Action Buttons */}
         <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
           <Link
-            to="/sign"
+            to="/signup"
             className="px-8 py-[10px] rounded-lg font-medium font-bold text-white bg-[#AF85D9] hover:brightness-110 transition"
           >
             Sign Up
