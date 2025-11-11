@@ -1,6 +1,26 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { auth } from "../firebase/config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { getApp } from "firebase/app";
+
+// Log Firebase configuration at runtime for debugging & sanity check auth binding
+console.log('Firebase config (getApp):', getApp().options);
+console.log('firebase cfg (auth.app):', auth.app.options);
+console.log('using apiKey:', auth.config?.apiKey || auth.app.options.apiKey);
+
+// Module-scoped reCAPTCHA verifier (stable across renders)
+let recaptchaVerifier; // undefined until created
+
+async function ensureRecaptcha() {
+  if (recaptchaVerifier) return recaptchaVerifier;
+  recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    size: 'invisible',
+    callback: () => console.log('reCAPTCHA solved'),
+    'expired-callback': () => console.log('reCAPTCHA expired')
+  });
+  await recaptchaVerifier.render();
+  return recaptchaVerifier;
+}
 
 export default function CreateAccountScreens() {
   const [step, setStep] = useState(1);
@@ -91,36 +111,15 @@ export default function CreateAccountScreens() {
 
       setOtpLoading(true);
 
-      // Clear existing reCAPTCHA
-      if (window.recaptchaVerifier) {
-        try {
-          window.recaptchaVerifier.clear();
-        } catch (e) {
-          console.log('Error clearing reCAPTCHA:', e);
-        }
-        window.recaptchaVerifier = null;
-      }
-
-      // Add delay before creating new verifier
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Create reCAPTCHA verifier with retry logic
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'send-otp-button', {
-        'size': 'invisible',
-        'callback': () => {
-          console.log('reCAPTCHA solved');
-        },
-        'expired-callback': () => {
-          console.log('reCAPTCHA expired');
-        }
-      });
+  // Ensure a stable, rendered v2 verifier
+  const verifier = await ensureRecaptcha();
 
       // Send OTP with timeout
       const timeoutPromise = new Promise((_, reject) => 
         setTimeout(() => reject(new Error('Request timeout')), 30000)
       );
       
-      const otpPromise = signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+  const otpPromise = signInWithPhoneNumber(auth, phone, verifier);
       const confirmation = await Promise.race([otpPromise, timeoutPromise]);
       
       setConfirmationResult(confirmation);
@@ -130,15 +129,9 @@ export default function CreateAccountScreens() {
       
     } catch (error) {
       console.error("Failed to send OTP:", error);
-      
-      if (window.recaptchaVerifier) {
-        try {
-          window.recaptchaVerifier.clear();
-        } catch (e) {
-          console.log('Error clearing reCAPTCHA:', e);
-        }
-        window.recaptchaVerifier = null;
-      }
+  // Reset verifier on failure to avoid stale state
+  try { recaptchaVerifier?.clear(); } catch {}
+  recaptchaVerifier = undefined;
       
       let msg = "Failed to send OTP. ";
       if (error.code === "auth/too-many-requests") {
@@ -165,10 +158,8 @@ export default function CreateAccountScreens() {
   // Cleanup reCAPTCHA on unmount
   useEffect(() => {
     return () => {
-      if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.clear();
-        window.recaptchaVerifier = null;
-      }
+      try { recaptchaVerifier?.clear(); } catch {}
+      recaptchaVerifier = undefined;
     };
   }, []);
 
@@ -383,8 +374,8 @@ export default function CreateAccountScreens() {
                 {otpLoading ? "Sending OTP..." : "Continue"}
               </button>
 
-              {/* reCAPTCHA container (invisible) */}
-              <div id="recaptcha-container" />
+              {/* reCAPTCHA container (invisible & not user-visible) */}
+              <div id="recaptcha-container" style={{ display: 'none' }} />
 
               <p className="text-center text-sm text-gray-600 pt-2">
                 Already have an account?{" "}
